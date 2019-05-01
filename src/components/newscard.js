@@ -3,13 +3,15 @@ import React,{Component} from 'react';
 const NewsCard = (props) =>{
 
     return(
-    <div className=" ui items">
-      <div className="item">
+    
+      <div className=" ui items">
+
+      <a href={props.article.url} className="item" target="_blank">
         <div className="image">
           <img src={props.article.urlToImage}/>
         </div>
         <div className="content">
-          <a className="header">{props.article.title}</a>
+          <div className="header">{props.article.title}</div>
           <div className="meta">
             <span>{props.article.description}</span>
           </div>
@@ -20,8 +22,9 @@ const NewsCard = (props) =>{
           {props.article.author}
           </div>
         </div>
-      </div>
+      </a>
     </div>
+ 
     )
 }
 

@@ -51,7 +51,7 @@ class Navbar extends Component{
                 <form onSubmit={this.onSearch} className={this.state.class}>
                     <div className="ui transparent icon input">
                         <input type="text" value ={this.state.term} onChange ={(e)=>{this.setState({term:e.target.value})}}/>
-                        <i className="search link icon"></i>
+                        <i className="search link icon" onClick={this.onSearch}></i>
                     </div>
                 </form>
             </div>

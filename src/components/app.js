@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import Navbar from './navbar';
 import NewsCardList from './newscardlist';
 import News from '../api/newsapi'
+import FrontPage from './frontpage'
 
 
 class App extends Component{
@@ -36,12 +37,13 @@ onNewsClick = async(clicked) =>{
     console.log(this.state.articles)
 }
 
+
     render(){
         return(
             <div>
                 <Navbar onClick={this.onNewsClick} onSearchTerm={this.onNewsSearch}/>
+                <FrontPage />
                 <NewsCardList feed={this.state.articles}/>
-
             </div>
         )
     }
