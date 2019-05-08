@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import './stylesheet.css'
 
 class Navbar extends Component{
 
@@ -16,6 +17,7 @@ class Navbar extends Component{
         // else{
         //     event.target.className="item"
         // }
+        console.clear()
         console.log(event.target.id)
         this.setState({
             clickedItem: event.target.id
@@ -36,17 +38,20 @@ class Navbar extends Component{
 
     render(){
     return(
-        <div className=" ui pointing ">
+        <div className=" ui pointing Searchbar">
             <div className="ui container  menu  ">
-            <a id="top-headlines" onClick={this.onActive} className={this.state.class}>
+            <a  onClick={this.onActive} className={this.state.class}>
             Top Headlines
             </a>
-            {/* <a id="everything" onClick={this.onActive} className={this.state.class}>
-                Everything
+            <a id="business" onClick={this.onActive} className={this.state.class}>
+            Business
             </a>
-            <a onClick={this.onActive} className={this.state.class}>
-                Friends
-            </a> */}
+            <a id="science" onClick={this.onActive} className={this.state.class}>
+            Science
+            </a>
+            <a id="technology" onClick={this.onActive} className={this.state.class}>
+            Technology
+            </a>
             <div className="right menu">
                 <form onSubmit={this.onSearch} className={this.state.class}>
                     <div className="ui transparent icon input">

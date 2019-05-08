@@ -8,7 +8,8 @@ import FrontPage from './frontpage'
 class App extends Component{
 
 state={
-    articles :[]
+    articles :[],
+    frontpage:[]
 }
 
 onNewsSearch = async(term) =>{
@@ -25,9 +26,11 @@ onNewsSearch = async(term) =>{
 }
 
 onNewsClick = async(clicked) =>{
-    const results = await News.get(`/${clicked}`,{
+    const results = await News.get('/top-headlines',{
         params:{
-            country:"us"
+            country:"us",
+            category: clicked
+
         }
     })
 
@@ -37,12 +40,27 @@ onNewsClick = async(clicked) =>{
     console.log(this.state.articles)
 }
 
+componentDidMount(){
+    News.get('/top-headlines',{
+        params:{
+            country:"us",
+
+        }
+    }).then((response)=>{
+        this.setState({
+            frontpage:response.data.articles.slice(0,4)
+        })
+    })
+
+
+}
+
 
     render(){
         return(
             <div>
                 <Navbar onClick={this.onNewsClick} onSearchTerm={this.onNewsSearch}/>
-                <FrontPage />
+                <FrontPage feed={this.state.frontpage}/>
                 <NewsCardList feed={this.state.articles}/>
             </div>
         )
