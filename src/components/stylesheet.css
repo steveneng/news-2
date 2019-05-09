@@ -40,6 +40,8 @@
     grid-row-end: span 2;
     padding: 1vw;
     box-shadow: 2px 4px 10px rgba(0, 0, 0, .2);
+    background: linear-gradient(145deg,#0d47a1,#42a5f5);
+    color: white;
 }
 
 .previewtitle{
