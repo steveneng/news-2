@@ -1,0 +1,120 @@
+.Searchbar {
+    background-color: #1E88E5;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, .2);
+    height: 72px;
+    position: sticky;
+    top: 0;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    z-index: 99999;
+}
+
+.frontpage {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 50% 25% 25%;
+    grid-template-rows: 150px 150px;
+    margin-top: 5vw;
+    margin-bottom: 5vw;
+
+}
+
+.quarters {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, .2);
+    background-color: black;
+}
+
+
+
+.quarters img {
+    width: 110%;
+    opacity: 0.8;
+}
+
+.main {
+
+    grid-row-end: span 2;
+    padding: 1vw;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, .2);
+}
+
+.previewtitle{
+    position: absolute;
+    color: white;
+    bottom: 1vw;
+    text-shadow: #0000008c 0.5px 0.1px 0.1px;
+    padding-left: 20px;
+    left: 15px;
+    border-left: solid 2px lightblue;
+}
+
+a:hover .previewtitle{
+    visibility: hidden;
+}
+
+.titles {
+    position: absolute;
+    z-index: 10000;
+    bottom: 0vw;
+    padding: 12px;
+    max-height: auto;
+    opacity: 0.8;
+    color: white;
+    background-color: #000000d4;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility .5s, opacity 0.5s linear;
+}
+
+a:hover .titles ,.quarters:hover{
+    visibility: visible;
+    opacity: .95;
+}
+
+.temperature h2{
+    font-size: 4em;
+    font-weight: 100;
+}
+
+.sun{
+
+    color: orange !important;
+}
+
+ .weathericon .icon{
+    font-size: 4em !important;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, .2);
+    position: absolute;
+    top: 28px;
+}
+
+.weathericon{
+    float: left;
+    position: relative;
+    height: 60px;
+    width: 90px;
+}
+
+h2 sup {
+    top: -1.5em;
+    font-size: 20px;
+}
+
+.cloud{
+    color: white;
+}
+
+@media only screen and (max-width: 600px) {
+    .description {
+        display: none;
+    }
+
+    .frontpage {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
