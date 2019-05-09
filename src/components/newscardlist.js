@@ -56,8 +56,11 @@ const NewsCardList = (props) =>{
     )
     return(
         <div className="ui container">
-            <h1><i class="newspaper outline icon"></i> Headlines</h1>
+            <h1 id="topstories"><i class="newspaper outline icon"></i> Top Stories</h1>
             {Cards}
+            <h1 id="business"><i class="dollar sign icon"></i> Business</h1>
+            <h1 id="science"><i class="flask sign icon"></i> Science</h1>
+            <h1 id="technology"><i class="react icon"></i> Technology</h1>
         </div>
     )
 }
