@@ -30,8 +30,27 @@
     background-color: black;
 }
 
+.temperature{
+    position: relative;
+    height: auto;
+    width: 100%;
+    display: inline-block;
+    margin-top: 1vw;
+}
+
+.temperatures{
+    position: absolute;
+    right: 2vw;
+    top: 6px;
+}
+.temperatures p{
+    margin: 0;
+    font-weight: lighter;
+}
+
 #temperature {
     cursor: pointer;
+    margin: 0;
 }
 
 .quarters img {
@@ -93,10 +112,8 @@ a:hover .titles,
 }
 
 .weathericon .icon {
-    font-size: 4em !important;
     text-shadow: 1px 2px 3px rgba(0, 0, 0, .2);
-    position: absolute;
-    top: 28px;
+
     transition: transform 1s ease-in;
 }
 
@@ -104,7 +121,6 @@ a:hover .titles,
     float: left;
     position: relative;
     height: 60px;
-    width: 90px;
 }
 
 .weathericon:hover .icon {
@@ -121,11 +137,16 @@ h2 sup {
 
 
 /* weather icons */
-
-.cloud:after {
+.cloud::before,.scatteredcloud::before{
     content: "\f0c2";
+    font-size: .6em;
+}
+
+.cloud:after,scatteredcloud::after {
+    content: "\F0C2";
     position: absolute;
     left: 6px;
+    top: 0;
     color: #dadada;
     opacity: .97;
     font-size: .5em;
@@ -135,33 +156,32 @@ i.icon.thunder:before {
     content: "\F0E7";
     color: yellow;
     position: relative;
-    top: 16px;
-    left: 6px;
+    top: 19px;
+    left: 0px;
     font-size: 28px;
 }
 
 i.icon.thunder:after {
-    content: "\f0c2";
+    content: "\F0C2";
     position: absolute;
     left: 1px;
-    bottom: .8em;
+    font-size: .85em;
 }
 
 i.icon.partial:before {
-    content: "\f185";
+    content: "\F185";
     color: #ffd800;
     position: relative;
     left: 6px;
     opacity: .97;
-    font-size: 1.3em;
 }
 
 i.icon.partial:after {
     content: "\F0C2";
     position: absolute;
-    left: -4px;
-    font-size: .9em;
-    bottom: .5em;
+    left: 2px;
+    opacity: .97;
+    font-size: .7em;
 }
 
 
@@ -169,6 +189,26 @@ i.icon.partial:after {
 .zipcode {
     position: absolute;
     bottom: 2em;
+}
+
+@media only screen and (max-width: 992px) {
+    .frontpage{
+        display: flex;
+        flex-wrap: wrap
+        
+    }
+
+    .zipcode{
+        position: static;
+        margin: 2em 0 2em;
+    }
+
+    .main{
+        width: 100%;
+    }
+    .quarters{
+        width: 50%
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -180,4 +220,26 @@ i.icon.partial:after {
         display: flex;
         flex-wrap: wrap;
     }
+
+    .temperatures{
+        position: static;
+    }
+    .weathericon{
+        float: none;
+    }
+}
+
+@media only screen and (max-width:425px){
+    i.icon.sun:before {
+        content: "\f185";
+        font-size: 20vw;
+        position: relative;
+        right: 1vw;
+    }
+
+     #temperature i.icon{
+        float: right;
+        margin-right: 8vw;
+     }
+
 }

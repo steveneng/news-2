@@ -1,6 +1,5 @@
 import "./stylesheet.css";
 import React from "react";
-import Weather from "../api/openweather";
 import axios from "axios";
 
 export default class FrontPage extends React.Component {
@@ -13,7 +12,12 @@ export default class FrontPage extends React.Component {
       city: "",
       value: "",
       unit: "imperial",
-      degrees:"°F"
+      degrees:"°F",
+      speedunit:"mph",
+      humidity:"",
+      wind:"",
+      error:"",
+      counter:0
     };
   }
   componentDidMount() {
@@ -31,10 +35,33 @@ export default class FrontPage extends React.Component {
       })
       .then(response => {
         const conditions = response.data.main;
+        console.log(response.data)
         this.setState({
           temp: conditions.temp,
           city: response.data.name+", ",
-          condition: response.data.weather[0].description
+          condition: response.data.weather[0].description,
+          humidity:conditions.humidity+"%",
+          wind:response.data.wind.speed,
+          rain: (()=>{
+            if(response.data.rain){
+              console.log(response.data)
+              return response.data.rain["1h"]+"%"
+            }
+            else{
+              return "no rain :)"
+            }
+          })(),
+          
+          error:"",
+          degrees:(()=>{
+            if(this.state.unit==="imperial"){
+              return "°F"
+            }
+            else{
+              return "°C"
+            }
+          })()
+
         });
       },
         (error)=>{
@@ -43,7 +70,8 @@ export default class FrontPage extends React.Component {
             city: "404 woops",
             condition: "no droids here",
             zip:"",
-            degrees:""
+            degrees:"",
+            error:"none"
           });
         }
       );
@@ -51,14 +79,20 @@ export default class FrontPage extends React.Component {
   }
 
   weather = () => {
-    const conditions = ["sun", "cloud", "snowflake", "umbrella"];
     const current = this.state.condition;
     let icon = "";
     if (current.indexOf("rain") > 0) {
       icon = "umbrella";
     } else if (current.indexOf("sun") > 0 || current.indexOf("clear") >= 0) {
-      icon = "sun";
-    } else if (current.indexOf("overcast clouds") >= 0) {
+      let objDate = new Date();
+      let hour = objDate.getHours();
+      if(hour>=20 || hour<=4){
+        icon = "moon"
+      }
+      else{
+        icon="sun"
+      }
+    } else if (current.indexOf("overcast clouds") >= 0 || current.indexOf("broken clouds") >= 0 || current.indexOf("scattered clouds") >= 0) {
       icon = "cloud";
     } 
     else if (current.indexOf("few clouds") >= 0) {
@@ -88,7 +122,8 @@ export default class FrontPage extends React.Component {
     if(this.state.unit==="imperial"){
         this.setState({
             unit:"metric",
-            degrees:"°C"
+            degrees:"°C",
+            speedunit:"km/h"
         }, ()=>{
             this.inputWeather()
         })
@@ -96,7 +131,8 @@ export default class FrontPage extends React.Component {
     else{
         this.setState({
             unit:"imperial",
-            degrees:"°F"
+            degrees:"°F",
+            speedunit:"mph"
         }, ()=>{
             this.inputWeather()
         })
@@ -110,11 +146,12 @@ export default class FrontPage extends React.Component {
   };
 
   render() {
+
     const quarters = this.props.feed.map((article, i) => {
       return (
-        <a className="quarters" key={i} href={article.url} target="_blank">
+        <a rel="noopener noreferrer" className="quarters" key={i} href={article.url} target="_blank">
           <div>
-            <img src={article.urlToImage} />
+            <img alt="newscards" src={article.urlToImage} />
             <div className="description titles">
               <p>{article.title}</p>
             </div>
@@ -130,18 +167,23 @@ export default class FrontPage extends React.Component {
       <div className=" container ui">
         <div className="frontpage">
           <div className="main">
-            <h1>Today's Weather</h1>
+            <h1>Today's Weather <i className="icon thermometer half"/></h1>
             <div className="location">
               {this.state.city} {this.state.zip}
             </div>
             <div>{this.state.condition}</div>
             <div className="temperature">
-              <div className="weathericon">{this.weather()}</div>
-              <h2 id="temperature" onClick={this.changeUnits}>
+              <div className="weathericon">             <h2 id="temperature" onClick={this.changeUnits}>
+              {this.weather()} 
                 {this.state.temp} <sup>{this.state.degrees}</sup>
-              </h2>
+              </h2></div>
+              <div style={{display:`${this.state.error}`}} className="temperatures ">
+                <p>Wind: {this.state.wind} {this.state.speedunit}</p>
+                <p>Humidity: {this.state.humidity}</p>
+                <p>Precipitation: {this.state.rain}</p>
+              </div>
             </div>
-
+        
             <form className="zipcode" onSubmit={this.changeZip}>
               <div className="ui input">
                 <input
